@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,7 +27,7 @@ public class FakeStoreServiceimpl implements ProductService{
 	public Product createProduct(Product product) {
 		// TODO Auto-generated method stub
 		FakeStoreProductRequestDto fakestoredto = new FakeStoreProductRequestDto();
-		fakestoredto.setCategory(product.getCategoryName());
+		fakestoredto.setCategory(product.getCategory());
 		fakestoredto.setDescription(product.getDescription());
 		fakestoredto.setImage(product.getImageUrl());
 		fakestoredto.setPrice(product.getPrice());
@@ -32,7 +35,7 @@ public class FakeStoreServiceimpl implements ProductService{
 		FakeStoreProductResponseDto respose = resttemplate.postForObject("https://fakestoreapi.com/products", fakestoredto, FakeStoreProductResponseDto.class);
 		
 		Product product1 = new Product();
-		product1.setCategoryName(respose.getCategory());
+		product1.setCategory(respose.getCategory());
 		product1.setDescription(respose.getDescription());
 		product1.setId(respose.getId());
 		product1.setImageUrl(respose.getImage());
@@ -54,5 +57,46 @@ public class FakeStoreServiceimpl implements ProductService{
 
 		return products;
 	}
+
+
+//	@Override
+//	public Product partialUpdateProduct(Long productId, Product product) {
+//        HttpEntity<FakeStoreProductRequestDto> requestEntity = new HttpEntity<>(FakeStoreProductRequestDto.fromProduct(product));
+//        ResponseEntity<FakeStoreProductResponseDto> responseEntity = resttemplate.exchange(
+//                "https://fakestoreapi.com/products/" + productId,
+//                HttpMethod.PATCH,
+//                requestEntity,
+//                FakeStoreProductResponseDto.class
+//        );
+//
+//
+//        return responseEntity.getBody().toProduct();
+//	}
+
+	@Override
+    public Product partialUpdateProduct(Long productId, Product product) {
+        HttpEntity<FakeStoreProductRequestDto> requestEntity = new HttpEntity<>(FakeStoreProductRequestDto.fromProduct(product));
+        ResponseEntity<FakeStoreProductResponseDto> responseEntity = resttemplate.exchange(
+                "https://fakestoreapi.com/products/" + productId,
+                HttpMethod.PATCH,
+                requestEntity,
+                FakeStoreProductResponseDto.class
+        );
+
+        return responseEntity.getBody().toProduct();
+    }
+	@Override
+	public boolean deleteProductById(Long productId) {
+	    try {
+	        resttemplate.delete("https://fakestoreapi.com/products/" + productId);
+	        return true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
+
+
 
 }

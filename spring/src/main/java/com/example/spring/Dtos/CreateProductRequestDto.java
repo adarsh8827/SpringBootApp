@@ -2,6 +2,7 @@ package com.example.spring.Dtos;
 
 
 
+import com.example.spring.models.Category;
 import com.example.spring.models.Product;
 
 import lombok.Getter;
@@ -37,23 +38,23 @@ public class CreateProductRequestDto {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public String getCategoryName() {
+	public Category getCategoryName() {
 		return categoryName;
 	}
-	public void setCategoryName(String categoryName) {
+	public void setCategoryName(Category categoryName) {
 		this.categoryName = categoryName;
 	}
 	private String description;
 	private Double price;
 	private String imageUrl;
-	private String categoryName;
+	private Category categoryName;
 	public Product toProduct() {
         Product product = new Product();
         product.setTitle(this.title);
         product.setDescription(this.description);
         product.setPrice(this.price);
         product.setImageUrl(this.imageUrl);
-        product.setCategoryName(this.categoryName);
+        product.setCategory(this.categoryName);
 
         return product;
     }

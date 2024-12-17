@@ -1,18 +1,21 @@
 package com.example.spring.Dtos;
 
+import com.example.spring.models.Category;
+import com.example.spring.models.Product;
+
 public class FakeStoreProductRequestDto {
-	private int id;
-	public int getId() {
+	private long id;
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	private String title;
 	private double price;
 	private String description;
 	private String image;
-	private String category;
+	private Category category;
 	public String getTitle() {
 		return title;
 	}
@@ -37,11 +40,22 @@ public class FakeStoreProductRequestDto {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory(Category category2) {
+		this.category = category2;
 	}
+    public static FakeStoreProductRequestDto fromProduct(Product product) {
+    	FakeStoreProductRequestDto responseDto = new FakeStoreProductRequestDto();
+        responseDto.setId(product.getId());
+        responseDto.setDescription(product.getDescription());
+        responseDto.setTitle(product.getTitle());
+        responseDto.setPrice(product.getPrice());
+        responseDto.setImage(product.getImageUrl());
+
+        return responseDto;
+    }
+
 
 }

@@ -1,23 +1,35 @@
 package com.example.spring.models;
 
+
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Product {
-	private long id;
-	public long getId() {
-		return id;
-	}
-	public void setId(long d) {
-		this.id = d;
-	}
-	private String title;
+@Entity
+public class Product extends BaseModel{
+    private String title;
     private String description;
     private Double price;
     private String imageUrl;
-    private String CategoryName;
+//    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne
+    private Category category;
+	
+    
+    
+
+
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category categoryName) {
+		this.category = categoryName;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -42,10 +54,5 @@ public class Product {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public String getCategoryName() {
-		return CategoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		CategoryName = categoryName;
-	}
+	
 }
