@@ -20,6 +20,7 @@ import com.example.spring.Dtos.CreateProductRequestDto;
 import com.example.spring.Dtos.CreateProductResponseDto;
 import com.example.spring.Dtos.GetProductResponseDto;
 import com.example.spring.Dtos.PatchProductResponseDto;
+import com.example.spring.Exceptions.ProductNotFoundException;
 import com.example.spring.Service.ProductService;
 import com.example.spring.models.Product;
 
@@ -61,7 +62,7 @@ public class ProductController {
 	}
 	
 	@PatchMapping("{id}")
-	public PatchProductResponseDto patchproduct(@PathVariable("id") Long id,@RequestBody CreateProductRequestDto productDto) {
+	public PatchProductResponseDto patchproduct(@PathVariable("id") Long id,@RequestBody CreateProductRequestDto productDto) throws ProductNotFoundException {
 		
 		Product product = productservice.partialUpdateProduct(id, productDto.toProduct());
 //		PatchProductResponseDto response = new PatchProductResponseDto();

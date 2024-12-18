@@ -19,9 +19,7 @@ import jakarta.persistence.OneToOne;
 public class Category extends BaseModel{
 
     private String name;
-    public Category() {
-        // Empty constructor
-    }
+    public Category() {}
     public Category(String name) {
     	this.name=name;
     }

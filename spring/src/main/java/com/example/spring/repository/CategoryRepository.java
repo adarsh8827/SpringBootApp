@@ -1,4 +1,4 @@
-package repository;
+package com.example.spring.repository;
 
 
 import java.util.Optional;
